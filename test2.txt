@@ -1,0 +1,18 @@
+SimpleApp API Guide
+1. Initialization:
+   - Initialize the API client with your API key.
+
+2. User Management:
+   - createUser(): Adds a new user.
+   - deleteUser(): Removes an existing user.
+   - updateUser(): Updates user details.
+
+3. Data Retrieval:
+   - getData(): Fetches data based on parameters.
+
+4. Responses:
+   - Methods return a JSON object.
+   - Handle potential exceptions like network errors.
+
+5. More Information:
+   - Refer to our online documentation for details.

@@ -4,8 +4,15 @@ import java.util.Scanner;
 
 public class fogIndex {
     public static void main(String[] args) {
-        // Read file in
-        String filePath = "/file.txt";
+        // Check if at least one command line argument is given
+        if (args.length < 1) {
+            System.out.println("Please provide a file path as a command line argument");
+            return;
+        } 
+            
+        // Read file path from command line argument
+        String filePath = args[0];
+        
         try {
             // Read file contents into text String
             String text = readFile(filePath);
@@ -13,7 +20,7 @@ public class fogIndex {
             // Calculate fog index
             double fogIndex = calculateFogIndex(text);
             System.out.println("Fog index: " + fogIndex);
-            
+
         } catch (Exception e) {
             System.out.println("Error reading file");
         }
