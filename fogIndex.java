@@ -86,5 +86,37 @@ public class fogIndex {
         return count;
     }
 
+    public static String parseFile(String fileName){
+        try{
+            Path path = Paths.get(fileName);
+    
+            return String.join(" ", Files.readAllLines(path));
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found, please try again");
+            return "";
+        }
+        
+    }
+    
+    //method to count words
+    public static int countWords(String sentences){
+        String[] words = sentences.split(" ");
+        int wordCount = words.length;
+        
+        return wordCount;
+    }
+    
+    //fog index calculator
+    public static double fogIndexCalculator(int totalWords, int totalSentences, int numComplexWords){
+        int wordsToSentencesRatio = totalWords / totalSentences;
+        int complexToWordsRatio = numComplexWords / totalWords;
+        int ratio = 100 * complexToWordsRatio;
+        int total = wordsToSentencesRatio + ratio;
+        double result = 0.4 * total;
+    
+        return result;
+    }
+
 
 }
