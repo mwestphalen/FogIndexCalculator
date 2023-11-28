@@ -1,5 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class fogIndex {
@@ -18,7 +22,16 @@ public class fogIndex {
             String text = readFile(filePath);
 
             // Calculate fog index
-            double fogIndex = calculateFogIndex(text);
+            int countWords = countWords(text);
+            int countSentences = countSentences(text);
+            int countComplexWords = countComplexWords(text);
+            
+            // Print results
+            System.out.println("Words: " + countWords);
+            System.out.println("Sentences: " + countSentences);
+            System.out.println("Complex words: " + countComplexWords);
+
+            double fogIndex = fogIndexCalculator(countWords, countSentences, countComplexWords);
             System.out.println("Fog index: " + fogIndex);
 
         } catch (Exception e) {
@@ -92,7 +105,7 @@ public class fogIndex {
     
             return String.join(" ", Files.readAllLines(path));
         }
-        catch(FileNotFoundException e){
+        catch(IOException e){
             System.out.println("File not found, please try again");
             return "";
         }
@@ -109,10 +122,11 @@ public class fogIndex {
     
     //fog index calculator
     public static double fogIndexCalculator(int totalWords, int totalSentences, int numComplexWords){
-        int wordsToSentencesRatio = totalWords / totalSentences;
-        int complexToWordsRatio = numComplexWords / totalWords;
-        int ratio = 100 * complexToWordsRatio;
-        int total = wordsToSentencesRatio + ratio;
+        double wordsToSentencesRatio = (double)totalWords / (double)totalSentences;
+        double complexToWordsRatio = (double)numComplexWords / totalWords;
+        double ratio = 100 * complexToWordsRatio;
+        double total = wordsToSentencesRatio + ratio;
+        
         double result = 0.4 * total;
     
         return result;
