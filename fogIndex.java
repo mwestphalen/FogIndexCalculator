@@ -12,38 +12,38 @@ public class fogIndex {
         if (args.length < 1) {
             System.out.println("Please provide a file path as a command line argument");
             return;
-        } 
-            
-        // Read file path from command line argument
-        String filePath = args[0];
-        
-        try {
-            // Read file contents into text String
-            String text = readFile(filePath);
-
-            // Calculate fog index
-            int countWords = countWords(text);
-            int countSentences = countSentences(text);
-            int countComplexWords = countComplexWords(text);
-            
-            // Print results
-            System.out.println("Words: " + countWords);
-            System.out.println("Sentences: " + countSentences);
-            System.out.println("Complex words: " + countComplexWords);
-
-            double fogIndex = fogIndexCalculator(countWords, countSentences, countComplexWords);
-            System.out.println("Fog index: " + fogIndex);
-
-        } catch (Exception e) {
-            System.out.println("Error reading file");
         }
+
+        // Read file path from command line argument (only first arg)
+        String filePath = args[0];
+
+        // Read file contents into text String
+        String text = readFile(filePath);
+
+        // If file is empty, print error message and return
+        if (text.equals("")) {
+            System.out.println("File is empty");
+            return;
+        }
+
+        // Calculate fog index
+        int countWords = countWords(text);
+        int countSentences = countSentences(text);
+        int countComplexWords = countComplexWords(text);
+        double fogIndex = calculateFogIndex(countWords, countSentences, countComplexWords);
+
+        // Print results
+        System.out.println("\nAmount of Words: " + countWords);
+        System.out.println("Amount of Sentences: " + countSentences);
+        System.out.println("Amount of Complex Words: " + countComplexWords);
+        System.out.println("\nFog Index: " + String.format("%.3f", fogIndex) + "\n");
     }
 
     // Read file and return text as a string
     private static String readFile(String filePath) {
         // Create string builder to store text
         StringBuilder text = new StringBuilder();
-        
+
         // Try to read file
         try (Scanner scanner = new Scanner(new File(filePath))) {
             // Read file line by line
@@ -53,10 +53,31 @@ public class fogIndex {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
+            System.exit(0);  
         }
 
         // Return text as string
         return text.toString();
+    }
+
+    public static String parseFile(String fileName){
+        try{
+            Path path = Paths.get(fileName);
+    
+            return String.join(" ", Files.readAllLines(path));
+        }
+        catch(IOException e){
+            System.out.println("File not found, please try again");
+            return "";
+        }
+    }
+    
+    // // Count number of words in the text.
+    public static int countWords(String sentences){
+        String[] words = sentences.split(" ");
+        int wordCount = words.length;
+        
+        return wordCount;
     }
 
     // Count number of sentences in the text.
@@ -98,37 +119,15 @@ public class fogIndex {
 
         return count;
     }
-
-    public static String parseFile(String fileName){
-        try{
-            Path path = Paths.get(fileName);
     
-            return String.join(" ", Files.readAllLines(path));
-        }
-        catch(IOException e){
-            System.out.println("File not found, please try again");
-            return "";
-        }
-        
-    }
-    
-    //method to count words
-    public static int countWords(String sentences){
-        String[] words = sentences.split(" ");
-        int wordCount = words.length;
-        
-        return wordCount;
-    }
-    
-    //fog index calculator
-    public static double fogIndexCalculator(int totalWords, int totalSentences, int numComplexWords){
+    // Calculate Gunning Fog Index
+    public static double calculateFogIndex(int totalWords, int totalSentences, int numComplexWords){
         double wordsToSentencesRatio = (double)totalWords / (double)totalSentences;
         double complexToWordsRatio = (double)numComplexWords / totalWords;
         double ratio = 100 * complexToWordsRatio;
         double total = wordsToSentencesRatio + ratio;
-        
+
         double result = 0.4 * total;
-    
         return result;
     }
 
