@@ -1,0 +1,12 @@
+Welcome to SimpleApp.
+Installation:
+- Download the setup file from our website.
+- Double-click the setup file to start the installation.
+- Follow the on-screen instructions.
+Using the App:
+- Open SimpleApp by clicking its icon.
+- To create a new file, select 'File' > 'New'.
+- Save your work by choosing 'File' > 'Save'.
+Support:
+- Visit our website for more information.
+- Contact our support team for assistance.
