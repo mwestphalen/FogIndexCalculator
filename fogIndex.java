@@ -1,9 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class fogIndex {
@@ -59,22 +55,10 @@ public class fogIndex {
         // Return text as string
         return text.toString();
     }
-
-    public static String parseFile(String fileName){
-        try{
-            Path path = Paths.get(fileName);
-    
-            return String.join(" ", Files.readAllLines(path));
-        }
-        catch(IOException e){
-            System.out.println("File not found, please try again");
-            return "";
-        }
-    }
     
     // // Count number of words in the text.
-    public static int countWords(String sentences){
-        String[] words = sentences.split(" ");
+    public static int countWords(String text){
+        String[] words = text.split("\\s+");
         int wordCount = words.length;
         
         return wordCount;
@@ -82,8 +66,8 @@ public class fogIndex {
 
     // Count number of sentences in the text.
     public static int countSentences(String text) {
-        // Split text into sentences using regex to split on ., !, ?
-        String[] sentences = text.split("[.!?]");
+        // Split text into sentences using regex to split on ., :, !, ?
+        String[] sentences = text.split("[:.!?]");
 
         // Return number of sentences
         return sentences.length;
