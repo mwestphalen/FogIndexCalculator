@@ -14,7 +14,7 @@ public class fogIndex {
         String filePath = args[0];
 
         // Read file contents into text String
-        String text = readFile(filePath);
+        String text = readFile("docs/" + filePath);
 
         // If file is empty, print error message and return
         if (text.equals("")) {
