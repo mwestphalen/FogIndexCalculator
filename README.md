@@ -34,7 +34,7 @@ Contributions to this project are welcome. To contribute:
 ## Contact
 Matheus K. Westphalen - mkwestphalen@gmail.com
 
-Nicole Edoziem - addemail@gmail.com
+Nicole Edoziem - nicoleedoziem@gmail.com
 
 Project Link: [https://github.com/mwestphalen/gunning-fog-index-calculator](https://github.com/mwestphalen/gunning-fog-index-calculator)
 
